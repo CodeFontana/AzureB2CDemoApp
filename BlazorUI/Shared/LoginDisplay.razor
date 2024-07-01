@@ -1,14 +1,16 @@
 ﻿<AuthorizeView>
     <Authorized>
         <MudNavLink Href="MicrosoftIdentity/Account/EditProfile" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Person" Style="width: unset;">
-            <MudText Typo="Typo.body1">@context.User.Claims.FirstOrDefault(c => c.Type.Contains("givenname"))?.Value</MudText>
+            <MudText Typo="Typo.body1">
+                @context.User.Claims.FirstOrDefault(c => c.Type.Contains("givenname"))?.Value
+            </MudText>
         </MudNavLink>
-        <MudNavLink Href="MicrosoftIdentity/Account/SignOut" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Logout" Style="width: unset;">
+        <MudNavLink Href="MicrosoftIdentity/Account/SignOut" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Logout" Style="width: unset; color: white;">
             <MudText Typo="Typo.body1">Logout</MudText>
         </MudNavLink>
     </Authorized>
     <NotAuthorized>
-        <MudNavLink Href="MicrosoftIdentity/Account/SignIn" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Login" Style="width: unset;">
+        <MudNavLink Href="MicrosoftIdentity/Account/SignIn" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Login" Style="width: unset; color: white;">
             <MudText Typo="Typo.body1">Login</MudText>
         </MudNavLink>
     </NotAuthorized>

@@ -5,12 +5,12 @@
 
 <PageTitle>Azure B2C Demo</PageTitle>
 
-<MudThemeProvider Theme="_currentTheme" />
+<MudThemeProvider Theme="_theme" @bind-IsDarkMode="@_isDarkMode" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Elevation="5" Dense="true" Color="@(_currentTheme == lightTheme ? Color.Primary : Color.Primary)">
+    <MudAppBar Elevation="5" Dense="true" Color="Color.Primary">
 
         @if (_drawerOpen == false)
         {
@@ -22,18 +22,22 @@
 
         <LoginDisplay />
 
-        @if (_currentTheme == lightTheme)
+        @if (_isDarkMode)
         {
-            <MudButton OnClick="@((e) => ToggleThemeAsync())"><MudIcon Icon="@Icons.Material.Filled.DarkMode" Color="Color.Default"></MudIcon></MudButton>
+            <MudButton OnClick="@((e) => ToggleThemeAsync())" Style="color: white;">
+                <MudIcon Icon="@Icons.Material.Filled.LightMode" />
+            </MudButton>
         }
         else
         {
-            <MudButton OnClick="@((e) => ToggleThemeAsync())"><MudIcon Icon="@Icons.Material.Filled.LightMode"></MudIcon></MudButton>
+            <MudButton OnClick="@((e) => ToggleThemeAsync())" Style="color: white;">
+                <MudIcon Icon="@Icons.Material.Filled.DarkMode" />
+            </MudButton>
         }
 
     </MudAppBar>
 
-    <MudDrawer @bind-Open="_drawerOpen" Elevation="5" Color="@(_currentTheme == lightTheme ? Color.Secondary : Color.Dark)">
+    <MudDrawer @bind-Open="_drawerOpen" Elevation="5" Color="@(_isDarkMode ? Color.Dark : Color.Secondary)">
         <MudDrawerHeader Class="d-flex align-center pt-0">
             <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="() => _drawerOpen = !_drawerOpen" />
             <MudText Typo="Typo.h6" Style="white-space: nowrap">Blazor Server</MudText>
@@ -66,39 +70,41 @@
 </MudLayout>
 
 @code {
-    private MudTheme _currentTheme = new();
+    private MudTheme _theme = new();
     private bool _drawerOpen = true;
+    private bool _isDarkMode;
 
     protected override async Task OnInitializedAsync()
     {
-        string theme = await LocalStorage.GetItemAsync<string>("Theme");
+        _theme = customTheme;
+        string? theme = await LocalStorage.GetItemAsync<string>("Theme");
 
         if (string.IsNullOrWhiteSpace(theme)
             || string.Equals(theme, "Dark", System.StringComparison.CurrentCultureIgnoreCase))
         {
-            _currentTheme = darkTheme;
+            _isDarkMode = true;
         }
         else
         {
-            _currentTheme = lightTheme;
+            _isDarkMode = false;
         }
     }
 
     private async Task ToggleThemeAsync()
     {
-        if (_currentTheme == lightTheme)
+        if (_isDarkMode)
         {
-            _currentTheme = darkTheme;
-            await LocalStorage.SetItemAsync("Theme", "Dark");
+            _isDarkMode = false;
+            await LocalStorage.SetItemAsync("Theme", "Light");
         }
         else
         {
-            _currentTheme = lightTheme;
-            await LocalStorage.SetItemAsync("Theme", "Light");
+            _isDarkMode = true;
+            await LocalStorage.SetItemAsync("Theme", "Dark");
         }
     }
 
-    private MudTheme lightTheme = new()
+    private static MudTheme customTheme = new()
         {
             Typography = new()
             {
@@ -107,7 +113,7 @@
                     FontFamily = new[] { "Lato", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" }
                 }
             },
-            Palette = new()
+            PaletteLight = new()
             {
                 Black = "#000000FF",
                 White = "#FFFFFFFF",
@@ -161,15 +167,15 @@
                 ActionDisabledBackground = "#0000001E",
 
                 Background = "#C8C8C8ff",
-                BackgroundGrey = "#F5F5F5FF",
+                BackgroundGray = "#F5F5F5FF",
 
                 Surface = "#FFFFFFFF",
 
                 DrawerBackground = "#FFFFFFFF",
                 DrawerText = "#424242FF",
-                DrawerIcon = "#F1F1F1FF",
+                DrawerIcon = "#FFFFFFFF",
 
-                AppbarBackground = "#594ae2ff",
+                AppbarBackground = "#594AE2FF",
                 AppbarText = "#FFFFFFFF",
 
                 LinesDefault = "#0000001E",
@@ -192,19 +198,8 @@
 
                 OverlayDark = "rgba(33,33,33,0.4980392156862745)",
                 OverlayLight = "rgba(255,255,255,0.4980392156862745)"
-            }
-        };
-
-    private MudTheme darkTheme = new()
-        {
-            Typography = new()
-            {
-                Default = new()
-                {
-                    FontFamily = new[] { "Lato", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" }
-                }
             },
-            Palette = new()
+            PaletteDark = new ()
             {
                 Black = "#27272F",
                 White = "#FFFFFFFF",
@@ -258,13 +253,13 @@
                 ActionDisabledBackground = "rgba(255,255,255, 0.12)",
 
                 Background = "#1a1a27ff",
-                BackgroundGrey = "#151521FF",
+                BackgroundGray = "#151521FF",
 
                 Surface = "#1E1E2DFF",
 
                 DrawerBackground = "#1A1A27FF",
                 DrawerText = "#92929FFF",
-                DrawerIcon = "#92929FFF",
+                DrawerIcon = "#FFFFFFFF",
 
                 AppbarBackground = "#1a1a27cc",
                 AppbarText = "#92929FFF",
