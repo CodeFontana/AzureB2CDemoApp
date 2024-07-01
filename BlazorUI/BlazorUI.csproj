@@ -8,10 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
-    <PackageReference Include="Microsoft.Identity.Web" Version="2.9.0" />
-    <PackageReference Include="Microsoft.Identity.Web.UI" Version="2.9.0" />
-    <PackageReference Include="MudBlazor" Version="6.2.2" />
+    <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="2.20.0" />
+    <PackageReference Include="Microsoft.Identity.Web.UI" Version="2.20.0" />
+    <PackageReference Include="MudBlazor" Version="6.20.0" />
   </ItemGroup>
 
 </Project>
