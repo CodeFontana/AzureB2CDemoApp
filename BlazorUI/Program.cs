@@ -1,5 +1,4 @@
 using Blazored.LocalStorage;
-using BlazorUI;
 using BlazorUI.Features;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Rewrite;
@@ -23,7 +22,7 @@ builder.Services.AddRazorComponents()
     })
     .AddMicrosoftIdentityConsentHandler();
 builder.Services.AddResponseCompression();
-builder.Services.AddHttpContextAccessor();                
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddMudServices();
 builder.Services.AddBlazoredLocalStorage();
 WebApplication app = builder.Build();
