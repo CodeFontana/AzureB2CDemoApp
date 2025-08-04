@@ -1,16 +1,16 @@
 ﻿<AuthorizeView>
     <Authorized>
-        <MudNavLink Href="MicrosoftIdentity/Account/EditProfile" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Person" IconColor="Color.Surface" Style="width: unset;">
+        <MudNavLink Href="/authentication/editprofile" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Person" IconColor="Color.Surface" Style="width: unset;">
             <MudText Typo="Typo.body1">
                 @context.User.Claims.FirstOrDefault(c => c.Type.Contains("givenname"))?.Value
             </MudText>
         </MudNavLink>
-        <MudNavLink Href="MicrosoftIdentity/Account/SignOut" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Logout" IconColor="Color.Surface" Style="width: unset; color: white;">
+        <MudNavLink Href="/authentication/logout" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Logout" IconColor="Color.Surface" Style="width: unset; color: white;">
             <MudText Typo="Typo.body1">Logout</MudText>
         </MudNavLink>
     </Authorized>
     <NotAuthorized>
-        <MudNavLink Href="MicrosoftIdentity/Account/SignIn" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Login" IconColor="Color.Surface" Style="width: unset; color: white;">
+        <MudNavLink Href="/authentication/login" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Login" IconColor="Color.Surface" Style="width: unset; color: white;">
             <MudText Typo="Typo.body1">Login</MudText>
         </MudNavLink>
     </NotAuthorized>
