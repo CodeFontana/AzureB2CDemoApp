@@ -148,16 +148,13 @@ if (app.Environment.IsDevelopment() == false)
     app.UseHsts();
 }
 
+app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
 app.UseHttpsRedirection();
-app.UseStaticFiles();
-
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.UseAntiforgery();
-
+app.MapStaticAssets();
 app.AddOidcAuthEndpoints();
-
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AllowAnonymous();
