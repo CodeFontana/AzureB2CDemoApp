@@ -1,17 +1,32 @@
 ﻿<AuthorizeView>
     <Authorized>
-        <MudNavLink Href="/authentication/editprofile" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Person" IconColor="Color.Surface" Style="width: unset;">
-            <MudText Typo="Typo.body1">
-                @context.User.Claims.FirstOrDefault(c => c.Type.Contains("givenname"))?.Value
-            </MudText>
-        </MudNavLink>
-        <MudNavLink Href="/authentication/logout" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Logout" IconColor="Color.Surface" Style="width: unset; color: white;">
-            <MudText Typo="Typo.body1">Logout</MudText>
-        </MudNavLink>
+        <MudStack Row="true" AlignItems="AlignItems.Center" Spacing="1" Class="mr-2">
+            <MudButton Href="/authentication/editprofile"
+                       Variant="Variant.Text"
+                       Color="Color.Default"
+                       Size="Size.Small"
+                       StartIcon="@Icons.Material.Rounded.Person"
+                       Class="text-none">
+                @context.User.Claims.FirstOrDefault(c => c.Type.Contains("givenname", StringComparison.OrdinalIgnoreCase))?.Value
+            </MudButton>
+            <MudButton Href="/authentication/logout"
+                       Variant="Variant.Text"
+                       Color="Color.Default"
+                       Size="Size.Small"
+                       StartIcon="@Icons.Material.Rounded.Logout"
+                       Class="text-none">
+                Logout
+            </MudButton>
+        </MudStack>
     </Authorized>
     <NotAuthorized>
-        <MudNavLink Href="/authentication/login" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Login" IconColor="Color.Surface" Style="width: unset; color: white;">
-            <MudText Typo="Typo.body1">Login</MudText>
-        </MudNavLink>
+        <MudButton Href="/authentication/login"
+                   Variant="Variant.Text"
+                   Color="Color.Default"
+                   Size="Size.Small"
+                   StartIcon="@Icons.Material.Rounded.Login"
+                   Class="mr-2 text-none">
+            Login
+        </MudButton>
     </NotAuthorized>
 </AuthorizeView>
